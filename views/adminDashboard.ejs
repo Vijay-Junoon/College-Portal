@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Dashboard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+    font-family:Poppins,sans-serif;
+    background: linear-gradient(135deg,#f5f7ff,#eef2ff);
+    margin:0;
+}
+
+/* Container */
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:50px 20px;
+}
+
+/* Dashboard Card */
+.card{
+    background:white;
+    padding:30px;
+    border-radius:24px;
+    box-shadow:0 8px 30px rgba(0,0,0,0.06);
+    margin-bottom:30px;
+}
+
+/* Headings */
+h2{
+    color:#111827;
+    margin-bottom:30px;
+}
+
+h3{
+    color:#1f2937;
+    margin-top:25px;
+}
+
+/* Inputs */
+input{
+    width:100%;
+    padding:14px;
+    margin:10px 0;
+    border-radius:10px;
+    border:1px solid #ddd;
+    font-size:15px;
+    transition:0.3s;
+}
+
+input:focus{
+    outline:none;
+    border-color:#0ca678;
+    box-shadow:0 0 0 3px rgba(99,102,241,0.15);
+}
+
+/* Buttons */
+button{
+    padding:12px 18px;
+    border:none;
+    border-radius:10px;
+    background:#0ca678;
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#087f5b;
+    transform:translateY(-2px);
+}
+
+/* Delete Button */
+.delete{
+    background:#20c997;
+}
+
+.delete:hover{
+    background:#0ca678;
+}
+
+/* Resource + Notification Lists */
+ul{
+    list-style:none;
+    padding:0;
+}
+
+li{
+    background:#f8fafc;
+    padding:15px;
+    border-radius:12px;
+    margin:10px 0;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+/* Logout */
+.logout{
+    background:#087f5b;
+    width:100%;
+    margin-top:20px;
+}
+
+.logout:hover{
+    background:#087f5b;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+<h2>Admin Dashboard</h2>
+
+<h3>Total Students: <%= students %></h3>
+</div>
+
+<div class="card">
+<h3>Add Resource</h3>
+
+<form action="/admin/add-resource" method="POST" enctype="multipart/form-data">
+
+<input type="text" name="subject" placeholder="Subject" required>
+<input type="text" name="title" placeholder="Resource Title" required>
+
+<input type="file" name="pdf" accept="application/pdf" required>
+
+<button type="submit">Upload PDF</button>
+
+</form>
+</div>
+
+<div class="card">
+<h3>All Resources</h3>
+
+<ul>
+<% resources.forEach(resource => { %>
+<li>
+<div>
+<strong><%= resource.subject %></strong><br>
+<%= resource.title %>
+</div>
+
+<form action="/admin/delete-resource/<%= resource._id %>" method="POST">
+<button class="delete">Delete</button>
+</form>
+</li>
+<% }) %>
+</ul>
+</div>
+
+<div class="card">
+<h3>Add Notification</h3>
+
+<form action="/admin/add-notification" method="POST">
+
+<input type="text" name="title" placeholder="Title" required>
+<input type="text" name="message" placeholder="Message" required>
+
+<button type="submit">Add Notification</button>
+
+</form>
+</div>
+
+<div class="card">
+<h3>All Notifications</h3>
+
+<ul>
+<% notifications.forEach(note => { %>
+<li>
+<div>
+<strong><%= note.title %></strong><br>
+<%= note.message %>
+</div>
+
+<form action="/admin/delete-notification/<%= note._id %>" method="POST">
+<button class="delete">Delete</button>
+</form>
+</li>
+<% }) %>
+</ul>
+</div>
+
+<a href="/logout">
+<button class="logout">Logout</button>
+</a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+body {
+  font-family: "Poppins", sans-serif;
+  background: #e6fcf5;
+  margin: 0;
+}
+
+.resource-page {
+  padding: 30px;
+}
+
+.resource-header {
+  text-align: center;
+  padding: 30px;
+  background: linear-gradient(135deg, #12b886, #087f5b);
+  color: white;
+  border-radius: 20px;
+  margin-bottom: 30px;
+}
+
+.resource-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.resource-card {
+  background: white;
+  padding: 20px;
+  border-radius: 18px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: 0.3s;
+}
+
+.resource-card:hover {
+  transform: translateY(-5px);
+}
+
+.resource-title {
+  color: #666;
+  font-size: 14px;
+}
+
+.download-btn {
+  background: #12b886;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.download-btn:hover {
+  background: #087f5b;
+}
+
+.delete-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.back-section {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.back-btn {
+  background: #087f5b;
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.subject-filter {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.subject-filter a {
+  margin: 8px;
+  padding: 8px 16px;
+  background: #12b886;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.subject-filter a:hover {
+  background: #099268;
+}

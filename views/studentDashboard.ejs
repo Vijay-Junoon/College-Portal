@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<%
+    // Safely handle progress object
+    const progressData = user.progress
+        ? (user.progress.toObject ? user.progress.toObject() : user.progress)
+        : {};
+%>
+
+<div class="container">
+
+    <div class="sidebar">
+        <h2>College Portal</h2>
+        <a href="/student/dashboard">Dashboard</a>
+        <a href="/resources">Resources</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+    <div class="main">
+
+        <div class="topbar">
+            <h3>Welcome back, <%= user.name %> </h3>
+            <a href="/student/profile" class="profile-link">
+              <div class="profile">
+                  <img src="<%= user.profilePic %>" alt="Profile">
+                  <span><%= user.name %></span>
+              </div>
+            </a>
+        </div>
+
+        <!-- Welcome Banner -->
+        <div class="welcome-card">
+            <h2>Keep Learning </h2>
+            <p>Track your subjects and boost your progress every day.</p>
+        </div>
+
+        <h3>Overall Progress</h3>
+
+        <div class="progress-bar">
+          <div class="progress-fill"
+              style="width:<%= overallProgress %>%">
+
+          </div>
+        </div>
+
+      <h3>Subjects</h3>
+
+      <div class="subjects-container">
+
+        <% user.subjects.forEach((subject, sIndex) => { %>
+
+          <div class="subject-card">
+
+            <h4><%= subject.name %></h4>
+
+            <% 
+              const subjectCompleted = subject.units.filter(u => u).length;
+              const subjectProgress = Math.round((subjectCompleted / subject.units.length) * 100);
+            %>
+
+            <div class="progress-bar">
+              <div class="progress-fill"
+                  style="width:<%= subjectProgress %>%">
+              </div>
+            </div>
+
+            <div class="units-container">
+
+              <% subject.units.forEach((unit, uIndex) => { %>
+
+                <div class="unit-item">
+                  <form action="/student/unit/update" method="POST">
+                    <input type="hidden" name="subjectIndex" value="<%= sIndex %>">
+                    <input type="hidden" name="unitIndex" value="<%= uIndex %>">
+
+                    <div class="unit">
+                      <p>Unit <%= uIndex + 1 %></p>
+                      <input type="checkbox"
+                            onchange="this.form.submit()"
+                            <%= unit ? "checked" : "" %>>
+                      <!-- Unit <%= uIndex + 1 %> -->
+                    </div>
+                  </form>
+                </div>
+
+              <% }) %>
+
+            </div>
+
+          </div>
+
+        <% }) %>
+
+      </div>
+
+      <div>
+      <h3>Notifications</h3>
+
+      <div style="max-height:350px; overflow-y:auto; padding-right:10px;">
+
+      <% if(notifications && notifications.length > 0){ %>
+
+      <% notifications.forEach(note => { %>
+
+      <div style="
+          background:#f8fafc;
+          padding:18px;
+          border-radius:14px;
+          margin:12px 0;
+          border-left:5px solid #087f5b;
+      ">
+
+      <h4 style="margin:0 0 6px 0;">
+      <%= note.title %>
+      </h4>
+
+      <p style="margin:0;color:#555;font-size:14px;">
+      <%= note.message %>
+      </p>
+
+      <small style="color:#888">
+      <%= new Date(note.createdAt).toLocaleString() %>
+      </small>
+
+      </div>
+
+      <% }) %>
+
+      <% } else { %>
+
+      <p style="color:#777;text-align:center;">
+      No notifications available
+      </p>
+
+      <% } %>
+
+      </div>
+      </div>
+
+    </div>
+</div>
+</body>
+</html>

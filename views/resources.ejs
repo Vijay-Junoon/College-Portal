@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resources</title>
+    <link rel="stylesheet" href="/css/resources.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="resource-page">
+
+    <div class="subject-filter">
+
+      <a href="/resources?subject=ATCD">ATCD</a>
+      <a href="/resources?subject=FSD">FSD</a>
+      <a href="/resources?subject=CC">CC</a>
+      <a href="/resources?subject=ML">ML</a>
+      <a href="/resources?subject=DPPM">DPPM</a>
+      <a href="/resources">All Resources</a>
+
+    </div>
+
+    <div class="resource-header">
+        <h1>Learning Resources</h1>
+        <p>Access your study materials, notes and downloads</p>
+    </div>
+
+    <div class="resource-container">
+
+        <% if(resources.length === 0){ %>
+
+        <div class="empty-message">Uhoh there's nothing here</div>
+
+        <% } else { %>
+
+        <% resources.forEach(resource => { %>
+
+        <div class="resource-card">
+
+            <div class="resource-info">
+                <h3><%= resource.subject %></h3>
+                <p class="resource-title"><%= resource.title %></p>
+            </div>
+
+            <div class="resource-actions">
+
+                <a href="<%= resource.fileUrl %>" target="_blank">
+                    <button class="download-btn">Download</button>
+                </a>
+
+                <% if(role === "admin") { %>
+                <form action="/admin/delete-resource/<%= resource._id %>" method="POST">
+                    <button class="delete-btn">Delete</button>
+                </form>
+                <% } %>
+
+            </div>
+
+        </div>
+
+        <% })} %>
+
+    </div>
+
+    <div class="back-section">
+        <a href="/student/dashboard">
+            <button class="back-btn">← Back to Dashboard</button>
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>
