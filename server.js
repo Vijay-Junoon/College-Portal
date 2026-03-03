@@ -46,6 +46,11 @@ app.use(
 // =========================
 // ROUTES
 // =========================
+
+app.get("/", (req, res) => {
+    res.redirect("/login"); 
+});
+
 app.use("/", require("./routes/authRoutes"));
 app.use("/student", require("./routes/studentRoutes"));
 app.use("/admin", require("./routes/adminRoutes"));
