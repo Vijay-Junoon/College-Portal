@@ -1,5 +1,5 @@
 const express = require("express");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 
 const multer = require("multer");
@@ -43,7 +43,6 @@ router.post("/register", upload.single("profilePic"), async (req, res) => {
     const { name, email, password, role } = req.body;
 
     const hashedPassword = await bcrypt.hash(password, 10);
-
     const defaultSubjects = [
       { name: "ATCD", units: [false, false, false, false, false] },
       { name: "CC", units: [false, false, false, false, false] },
